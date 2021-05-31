@@ -10,7 +10,7 @@ plugins {
 }
 repositories {
     jcenter()
-    maven { url = uri("http://maven.fabricmc.net/") }
+    maven { url = uri("https://maven.fabricmc.net/") }
     maven { url = uri("https://dl.bintray.com/ladysnake/libs") }
     maven { url = uri("https://dl.bintray.com/adriantodt/maven") }
     maven { url = uri("https://maven.abusedmaster.xyz/") }
@@ -40,11 +40,12 @@ dependencies {
     modApi("me.sargunvohra.mcmods:autoconfig1u:${project.extra["autoconfig1u_version"]}")
     include("me.sargunvohra.mcmods:autoconfig1u:${project.extra["autoconfig1u_version"]}")
 
+    //TODO update modmenu when it's out
     //COMPATIBILITY: ModMenu
-    modImplementation("io.github.prospector:modmenu:${project.extra["modmenu_version"]}")
+    modCompileOnly("io.github.prospector:modmenu:${project.extra["modmenu_version"]}")
 
     // Test environiment with some mods
-    modRuntime("me.shedaniel:RoughlyEnoughItems:${project.extra["rei_version"]}")
+    //modRuntime("me.shedaniel:RoughlyEnoughItems:${project.extra["rei_version"]}")
 
 }
 
@@ -55,22 +56,18 @@ version = "${project.extra["mod_version"]}"
 minecraft {}
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_16
+    targetCompatibility = JavaVersion.VERSION_16
 }
 
-tasks.withType<KotlinCompile> { kotlinOptions.jvmTarget = "1.8" }
+tasks.withType<KotlinCompile> { kotlinOptions.jvmTarget = "16" }
 tasks.withType<JavaCompile> { options.encoding = "UTF-8" }
 
 tasks.processResources {
     inputs.property("version", project.version)
 
-    from(sourceSets["main"].resources.srcDirs) {
-        include("fabric.mod.json")
+    filesMatching("fabric.mod.json") {
         expand("version" to project.version)
-    }
-    from(sourceSets["main"].resources.srcDirs) {
-        exclude("fabric.mod.json")
     }
 }
 

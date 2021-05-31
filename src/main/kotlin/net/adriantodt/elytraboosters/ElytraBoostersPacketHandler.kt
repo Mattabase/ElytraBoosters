@@ -4,7 +4,7 @@ import io.netty.buffer.Unpooled
 import net.adriantodt.elytraboosters.ElytraBoosters.configHolder
 import net.adriantodt.elytraboosters.data.ElytraBoostersData.BoosterType.*
 import net.fabricmc.fabric.api.network.ServerSidePacketRegistry
-import net.minecraft.nbt.CompoundTag
+import net.minecraft.nbt.NbtCompound
 import net.minecraft.network.PacketByteBuf
 import net.minecraft.server.network.ServerPlayerEntity
 
@@ -12,7 +12,7 @@ import net.minecraft.server.network.ServerPlayerEntity
 object ElytraBoostersPacketHandler {
     val sync = identifier("sync")
     fun sendServerConfig(player: ServerPlayerEntity) {
-        val tag = CompoundTag()
+        val tag = NbtCompound()
         tag.putDouble("launcherConstantVelocity", configHolder.config.forwardLauncher.constantVelocity)
         tag.putDouble(
             "launcherInterpolatingVelocity",
@@ -41,11 +41,11 @@ object ElytraBoostersPacketHandler {
         tag.putDouble("fastBoosterFrictionFactor", configHolder.config.fastBooster.frictionFactor)
         tag.putInt("fastBoosterTicksPerDamage", configHolder.config.fastBooster.ticksPerDamage)
         ServerSidePacketRegistry.INSTANCE.sendToPlayer(
-            player, sync, PacketByteBuf(Unpooled.buffer()).writeCompoundTag(tag)
+            player, sync, PacketByteBuf(Unpooled.buffer()).writeNbt(tag)
         )
     }
 
-    fun updateConfigs(tag: CompoundTag) {
+    fun updateConfigs(tag: NbtCompound) {
         ElytraBoosters.logger.info("Syncing local configs from the server!")
         ElytraBoosters.data.launcherVelocity.constantVelocity = tag.getDouble("launcherConstantVelocity")
         ElytraBoosters.data.launcherVelocity.interpolatingVelocity = tag.getDouble("launcherInterpolatingVelocity")

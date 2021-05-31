@@ -8,7 +8,7 @@ import net.fabricmc.fabric.api.network.ClientSidePacketRegistry
 object ElytraBoostersClient : ClientModInitializer {
     override fun onInitializeClient() {
         ClientSidePacketRegistry.INSTANCE.register(ElytraBoostersPacketHandler.sync) { _, attachedData ->
-            ElytraBoostersPacketHandler.updateConfigs(attachedData.readCompoundTag()!!)
+            ElytraBoostersPacketHandler.updateConfigs(attachedData.readNbt()!!)
         }
 
         for (item in ElytraBoostersItems.boosterItems()) {
