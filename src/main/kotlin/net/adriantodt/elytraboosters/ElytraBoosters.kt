@@ -1,8 +1,8 @@
 package net.adriantodt.elytraboosters
 
-import me.sargunvohra.mcmods.autoconfig1u.AutoConfig
-import me.sargunvohra.mcmods.autoconfig1u.ConfigHolder
-import me.sargunvohra.mcmods.autoconfig1u.serializer.JanksonConfigSerializer
+import me.shedaniel.autoconfig.AutoConfig
+import me.shedaniel.autoconfig.ConfigHolder
+import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer
 import net.adriantodt.elytraboosters.data.ElytraBoostersConfig
 import net.adriantodt.elytraboosters.data.ElytraBoostersData
 import net.adriantodt.elytraboosters.data.impl.ElytraBoostersDataImpl

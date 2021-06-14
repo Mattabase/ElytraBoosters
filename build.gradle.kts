@@ -15,6 +15,8 @@ repositories {
     maven { url = uri("https://dl.bintray.com/adriantodt/maven") }
     maven { url = uri("https://maven.abusedmaster.xyz/") }
     maven { url = uri("https://jitpack.io") }
+    maven { url = uri("https://maven.terraformersmc.com/releases/") }
+    maven { url = uri("https://maven.shedaniel.me") }
 }
 
 dependencies {
@@ -29,23 +31,20 @@ dependencies {
     modImplementation("net.fabricmc:fabric-language-kotlin:${project.extra["fabric_kotlin_version"]}")
 
     // DEPENDENCY: Cloth Config 2
-    modApi("me.shedaniel.cloth:config-2:${project.extra["cloth_config_version"]}") {
+    modApi("me.shedaniel.cloth:cloth-config-fabric:${project.extra["cloth_config_version"]}") {
         exclude("net.fabricmc.fabric-api", "fabric-api")
     }
-    include("me.shedaniel.cloth:config-2:${project.extra["cloth_config_version"]}") {
+    include("me.shedaniel.cloth:cloth-config-fabric:${project.extra["cloth_config_version"]}") {
         exclude("net.fabricmc.fabric-api", "fabric-api")
     }
 
-    //DEPENDENCY: AutoConfig1u
-    modApi("me.sargunvohra.mcmods:autoconfig1u:${project.extra["autoconfig1u_version"]}")
-    include("me.sargunvohra.mcmods:autoconfig1u:${project.extra["autoconfig1u_version"]}")
-
-    //TODO update modmenu when it's out
     //COMPATIBILITY: ModMenu
-    modCompileOnly("io.github.prospector:modmenu:${project.extra["modmenu_version"]}")
+    modCompileOnly("com.terraformersmc:modmenu:${project.extra["modmenu_version"]}")
 
     // Test environiment with some mods
-    //modRuntime("me.shedaniel:RoughlyEnoughItems:${project.extra["rei_version"]}")
+    modRuntime("me.shedaniel:RoughlyEnoughItems-fabric:${project.extra["rei_version"]}") {
+        exclude("me.shedaniel.cloth")
+    }
 
 }
 
